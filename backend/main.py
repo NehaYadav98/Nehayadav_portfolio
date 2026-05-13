@@ -1,20 +1,13 @@
-
 import os
 from fastapi import FastAPI
 from pydantic import BaseModel
-from fastapi.middleware.cors import CORSMiddleware
-
 import faiss
 import numpy as np
 from dotenv import load_dotenv
 from sentence_transformers import SentenceTransformer
-
-import google.generativeai as genai
-
-
-# =========================
-# FASTAPI APP
-# =========================
+from google import genai                          # ✅ new package
+from google.genai import types
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
@@ -26,109 +19,50 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-# =========================
-# LOAD ENV VARIABLES
-# =========================
-
 load_dotenv()
 
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+# ✅ New client-based setup
+client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+MODEL_NAME = "gemini-2.0-flash"               # ✅ current model
 
-# Gemini setup
-genai.configure(api_key=GEMINI_API_KEY)
-
-gemini_model = genai.GenerativeModel(
-    "gemini-1.5-flash-latest"
-)
-
-
-# =========================
-# LOAD EMBEDDING MODEL
-# =========================
-
-embedding_model = SentenceTransformer(
-    "all-MiniLM-L6-v2"
-)
-
-
-# =========================
-# LOAD FAISS INDEX
-# =========================
+model = SentenceTransformer('all-MiniLM-L6-v2')
 
 INDEX_PATH = "faiss_index.index"
 TEXTS_PATH = "text_chunks.npy"
 
 index = faiss.read_index(INDEX_PATH)
-
-chunks = np.load(
-    TEXTS_PATH,
-    allow_pickle=True
-)
-
-
-# =========================
-# REQUEST MODEL
-# =========================
+chunks = np.load(TEXTS_PATH, allow_pickle=True)
 
 class Query(BaseModel):
     question: str
 
-
-# =========================
-# EMBEDDING FUNCTION
-# =========================
-
 def get_embedding(text):
-    return embedding_model.encode(text).astype("float32")
-
-
-# =========================
-# VECTOR SEARCH
-# =========================
+    return model.encode(text).astype("float32")
 
 def search(query, k=3):
-
     query_vector = get_embedding(query)
-
-    distances, indices = index.search(
-        np.array([query_vector]),
-        k
-    )
-
+    distances, indices = index.search(np.array([query_vector]), k)
     return [chunks[i] for i in indices[0]]
-
-
-# =========================
-# CHAT ENDPOINT
-# =========================
 
 @app.post("/chat")
 def chat(query: Query):
-
     context_chunks = search(query.question)
-
     context = " ".join(context_chunks)
-
     prompt = f"""
-    You are Neha Yadav's AI portfolio assistant.
-
     Answer the question ONLY using the context below.
+    If the answer is not in the context, say "I don't know".
 
-    If the answer is not available,
-    say "I don't know based on the portfolio."
-
-    CONTEXT:
+    Context:
     {context}
 
-    QUESTION:
+    Question:
     {query.question}
     """
-
-    response = gemini_model.generate_content(
-        prompt
+    # ✅ New API call style
+    response = client.models.generate_content(
+        model=MODEL_NAME,
+        contents=prompt
     )
-
     return {
         "answer": response.text,
         "context_used": context_chunks
