@@ -4,11 +4,9 @@ from pydantic import BaseModel
 import faiss
 import numpy as np
 from dotenv import load_dotenv
-from sentence_transformers import SentenceTransformer
-from google import genai                          # ✅ new package
-from google.genai import types
+from huggingface_hub import InferenceClient
 from fastapi.middleware.cors import CORSMiddleware
-
+from groq import Groq
 app = FastAPI()
 
 app.add_middleware(
@@ -22,22 +20,28 @@ app.add_middleware(
 load_dotenv()
 
 # ✅ New client-based setup
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-MODEL_NAME = "gemini-2.0-flash"               # ✅ current model
+MODEL_NAME = "llama-3.1-8b-instant"               # ✅ current model
+HF_API_TOKEN = os.getenv("HUGGINGFACE_API_TOKEN")
+HF_EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
-model = SentenceTransformer('all-MiniLM-L6-v2')
+if not HF_API_TOKEN:
+    raise ValueError("HUGGINGFACE_API_TOKEN is required in .env")
+
+hf_client = InferenceClient(token=HF_API_TOKEN)
 
 INDEX_PATH = "faiss_index.index"
 TEXTS_PATH = "text_chunks.npy"
 
 index = faiss.read_index(INDEX_PATH)
 chunks = np.load(TEXTS_PATH, allow_pickle=True)
+client = Groq()
 
 class Query(BaseModel):
     question: str
 
 def get_embedding(text):
-    return model.encode(text).astype("float32")
+    features = hf_client.feature_extraction(text, model=HF_EMBEDDING_MODEL)
+    return np.array(features, dtype="float32")
 
 def search(query, k=3):
     query_vector = get_embedding(query)
@@ -54,16 +58,25 @@ def chat(query: Query):
 
     Context:
     {context}
-
-    Question:
-    {query.question}
     """
-    # ✅ New API call style
-    response = client.models.generate_content(
-        model=MODEL_NAME,
-        contents=prompt
+
+    completion = client.chat.completions.create(
+        model = MODEL_NAME,
+        messages=[
+        {
+                "role": "system",  
+                "content": prompt
+            },
+            {
+                "role": "user",    
+                "content": query.question
+            }
+        ],
+        temperature=1,
+        max_completion_tokens=1024,
+        top_p=1,
+        stream=False,
+        stop=None
     )
-    return {
-        "answer": response.text,
-        "context_used": context_chunks
-    }
+
+    return completion.choices[0].message.content

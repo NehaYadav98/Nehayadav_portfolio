@@ -1,4 +1,6 @@
 venv/
+.venv/
 node_modules/
 __pycache__/
 .env
+text_chunks.npy

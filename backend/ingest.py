@@ -2,14 +2,20 @@ import os
 from dotenv import load_dotenv
 import faiss
 import numpy as np
-from openai import OpenAI
-from sentence_transformers import SentenceTransformer
-load_dotenv()
+from huggingface_hub import InferenceClient
 
+load_dotenv()
 
 DATA_PATH = "data/info.txt"
 INDEX_PATH = "faiss_index.index"
 TEXTS_PATH = "text_chunks.npy"
+HF_API_TOKEN = os.getenv("HUGGINGFACE_API_TOKEN")
+HF_EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+
+if not HF_API_TOKEN:
+    raise ValueError("HUGGINGFACE_API_TOKEN is required in .env")
+
+hf_client = InferenceClient(token=HF_API_TOKEN)
 
 # Step 1: Read file
 with open(DATA_PATH, "r", encoding="utf-8") as f:
@@ -26,10 +32,9 @@ def chunk_text(text, chunk_size=300):
 chunks = chunk_text(text)
 
 # Step 3: Create embeddings
-model = SentenceTransformer('all-MiniLM-L6-v2')
-
 def get_embedding(text):
-    return model.encode(text)
+    features = hf_client.feature_extraction(text, model=HF_EMBEDDING_MODEL)
+    return np.array(features, dtype="float32")
 
 embeddings = [get_embedding(chunk) for chunk in chunks]
 
