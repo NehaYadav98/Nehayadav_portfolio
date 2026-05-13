@@ -1,0 +1,277 @@
+/* ═══════════════════════════════════════════════════════════════
+   ANIMATIONS.CSS — Keyframes · Motion system
+═══════════════════════════════════════════════════════════════ */
+
+/* ── CORE KEYFRAMES ────────────────────────────────────────── */
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+/* ── BACKGROUND ORBS ───────────────────────────────────────── */
+
+@keyframes orbFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(60px, -40px) scale(1.05); }
+  66%       { transform: translate(-30px, 30px) scale(0.98); }
+}
+
+@keyframes orbFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40%       { transform: translate(-70px, 50px) scale(1.08); }
+  70%       { transform: translate(40px, -60px) scale(0.95); }
+}
+
+@keyframes orbFloat3 {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50%       { transform: translate(-50%, -50%) scale(1.2); }
+}
+
+.orb-1 { animation: orbFloat1 18s ease-in-out infinite; }
+.orb-2 { animation: orbFloat2 22s ease-in-out infinite; }
+.orb-3 { animation: orbFloat3 15s ease-in-out infinite; }
+
+/* ── HERO SHAPES ───────────────────────────────────────────── */
+
+@keyframes shapeFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%       { transform: translateY(-30px) rotate(180deg); }
+}
+
+@keyframes shapeFloatAlt {
+  0%, 100% { transform: translateY(0) rotate(45deg); }
+  50%       { transform: translateY(20px) rotate(225deg); }
+}
+
+@keyframes shapeSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.shape-1 { animation: shapeFloat 8s ease-in-out infinite; }
+.shape-2 { animation: shapeFloatAlt 10s ease-in-out infinite 1s; }
+.shape-3 { animation: shapeSpin 20s linear infinite; }
+.shape-4 { animation: shapeFloat 12s ease-in-out infinite 2s; }
+
+/* ── TYPEWRITER CURSOR ─────────────────────────────────────── */
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+  color: var(--cyan);
+  font-weight: 300;
+}
+
+/* ── SCROLL INDICATOR ──────────────────────────────────────── */
+
+@keyframes scrollWheel {
+  0%   { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(10px); opacity: 0; }
+}
+
+.scroll-wheel::after {
+  animation: scrollWheel 1.5s ease-in-out infinite;
+}
+
+/* ── SKILL BAR FILL ────────────────────────────────────────── */
+
+@keyframes fillBar {
+  from { width: 0; }
+}
+
+.skill-bar-fill.animate {
+  animation: fillBar 1.2s var(--ease-out) forwards;
+}
+
+/* ── ORBIT ─────────────────────────────────────────────────── */
+
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(var(--orbit-r)) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(var(--orbit-r)) rotate(-360deg); }
+}
+
+.orbit-1 { animation: orbit 6s linear infinite; --orbit-r: 90px; }
+.orbit-2 { animation: orbit 8s linear infinite reverse; --orbit-r: 90px; }
+.orbit-3 { animation: orbit 10s linear infinite 0.5s; --orbit-r: 90px; }
+.orbit-4 { animation: orbit 7s linear infinite 1s reverse; --orbit-r: 90px; }
+
+/* ── TAG PULSE ─────────────────────────────────────────────── */
+
+@keyframes tagGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.4); }
+  50%       { box-shadow: 0 0 0 6px rgba(6, 182, 212, 0); }
+}
+
+.hero-tag .tag-dot {
+  animation: tagGlow 2s ease-in-out infinite;
+}
+
+/* ── CHAT BUBBLE BOUNCE ────────────────────────────────────── */
+
+@keyframes bubbleEntrance {
+  0%   { opacity: 0; transform: scale(0.5) translateY(20px); }
+  70%  { transform: scale(1.1) translateY(-5px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.chat-bubble {
+  animation: bubbleEntrance 0.6s var(--ease-spring) 1s both;
+}
+
+/* ── CHAT WINDOW SLIDE ─────────────────────────────────────── */
+
+@keyframes chatSlideIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes chatSlideOut {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to   { opacity: 0; transform: translateY(20px) scale(0.95); }
+}
+
+.chat-window.open {
+  animation: chatSlideIn 0.35s var(--ease-spring) forwards;
+}
+
+.chat-window.closing {
+  animation: chatSlideOut 0.25s var(--ease-out) forwards;
+}
+
+/* ── MESSAGE APPEAR ────────────────────────────────────────── */
+
+@keyframes msgAppear {
+  from { opacity: 0; transform: translateY(12px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.chat-msg {
+  animation: msgAppear 0.3s var(--ease-spring) both;
+}
+
+/* ── TYPING DOTS ───────────────────────────────────────────── */
+
+@keyframes typingDot {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30%           { transform: translateY(-6px); opacity: 1; }
+}
+
+.typing-dot:nth-child(1) { animation: typingDot 1.2s ease-in-out infinite 0s; }
+.typing-dot:nth-child(2) { animation: typingDot 1.2s ease-in-out infinite 0.2s; }
+.typing-dot:nth-child(3) { animation: typingDot 1.2s ease-in-out infinite 0.4s; }
+
+/* ── FORM LINE EXPAND ──────────────────────────────────────── */
+
+@keyframes lineExpand {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+.form-group input:focus ~ .form-line,
+.form-group textarea:focus ~ .form-line {
+  animation: lineExpand 0.3s var(--ease-out) forwards;
+}
+
+/* ── COUNTER ───────────────────────────────────────────────── */
+
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.stat-num { animation: countUp 0.6s var(--ease-out) both; }
+
+/* ── FLIP CARD ─────────────────────────────────────────────── */
+
+.flip-card:hover .flip-inner {
+  transform: rotateY(180deg);
+}
+
+/* ── MAGNETIC HOVER ────────────────────────────────────────── */
+
+.magnetic {
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+}
+
+/* ── STAGGER GRID ITEMS ────────────────────────────────────── */
+
+.projects-grid .project-card:nth-child(1) { transition-delay: 0.05s; }
+.projects-grid .project-card:nth-child(2) { transition-delay: 0.1s; }
+.projects-grid .project-card:nth-child(3) { transition-delay: 0.15s; }
+.projects-grid .project-card:nth-child(4) { transition-delay: 0.2s; }
+.projects-grid .project-card:nth-child(5) { transition-delay: 0.25s; }
+.projects-grid .project-card:nth-child(6) { transition-delay: 0.3s; }
+
+/* ── PILL HOVER GLOW ───────────────────────────────────────── */
+
+@keyframes pillGlow {
+  0%, 100% { box-shadow: 0 0 0 0 currentColor; }
+  50%       { box-shadow: 0 0 12px 2px currentColor; }
+}
+
+.pill:hover {
+  animation: pillGlow 1s ease-in-out;
+}
+
+/* ── HERO ENTRY ────────────────────────────────────────────── */
+
+.hero-content > * {
+  opacity: 0;
+}
+
+.hero-loaded .hero-content > * {
+  animation: fadeInUp 0.9s var(--ease-out) both;
+}
+
+.hero-loaded .hero-tag      { animation-delay: 0.1s; }
+.hero-loaded .hero-name     { animation-delay: 0.25s; }
+.hero-loaded .hero-role     { animation-delay: 0.4s; }
+.hero-loaded .hero-desc     { animation-delay: 0.55s; }
+.hero-loaded .hero-ctas     { animation-delay: 0.7s; }
+.hero-loaded .hero-stats    { animation-delay: 0.85s; }
+
+/* ── CONTACT LINK HOVER ────────────────────────────────────── */
+
+@keyframes linkSlide {
+  from { transform: translateX(-4px); opacity: 0.6; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+.contact-link:hover {
+  animation: linkSlide 0.25s var(--ease-out) forwards;
+}
+
+/* ── SCROLL POSITION INDICATOR ─────────────────────────────── */
+
+@keyframes progressGrow {
+  from { width: 0; }
+}
+
+#scrollProgress {
+  animation: progressGrow 0.1s linear;
+}

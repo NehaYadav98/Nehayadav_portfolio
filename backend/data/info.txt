@@ -1,0 +1,64 @@
+Basic Information
+Name: Neha Yadav
+Phone: 9035895424
+Email: nehayadav2678@gmail.com
+LinkedIn: linkedin.com/in/neha-yadav-970783291
+GitHub: github.com/NehaYadav98
+Education
+Bachelor of Engineering in Computer Science
+Nitte Meenakshi Institute of Technology (Oct 2021 – Jun 2025)
+CGPA: 6.8
+12th (National Examination Board)
+National Infotech College (May 2018 – May 2020)
+Score: 73.25%
+10th (National Examination Board)
+Holy Land English Higher Secondary School (Apr 2017 – Mar 2018)
+Score: 85%
+Relevant Coursework:
+Data Structures and Algorithms (Java), OOP with Java, Operating Systems, Linux
+Experience
+Software Engineer Intern – EasyMy Learning (Feb 2025 – May 2025, Nepal)
+Developed interactive Notes, Profile, and Payment sections for students
+Built paginated notes view and centralized note management system
+Designed Notes UI for viewing and managing student notes
+Integrated backend APIs for dynamic data fetching
+Improved user experience through interactive learning interface
+Developed Profile section for updating user details (name, email, address, location)
+Implemented payment and redeem functionality
+Web Development Intern – InternPe (Jun 2024 – Jul 2024, Bangalore)
+Built To-Do List application using HTML, CSS, JavaScript
+Contributed to E-Commerce website (frontend UI & functionality)
+Worked on responsive design and user experience improvements
+Python Trainee – Infosys (Aug 2023 – Sep 2023, Bangalore)
+Completed Python-based project demonstrating problem-solving skills
+Learned software development workflows and best practices
+Collaborated with peers on coding tasks
+Projects
+Full-Stack Food Ordering Web Application (Jun 2025)
+Tech Stack: React.js, Node.js, Express, MongoDB, Stripe
+Developed full food delivery platform with authentication and cart system
+Built REST APIs and MongoDB schemas for users, food items, orders
+Implemented CRUD operations
+Integrated Stripe payment gateway
+Enabled real-time order tracking
+Created admin panel for managing platform data
+DSA Pattern Practice Tracker (Jan 2025)
+Tech Stack: React, FastAPI, Docker
+Built DSA tracker organizing problems by patterns (Sliding Window, DP, Graphs)
+Implemented filtering, tagging, and progress tracking
+Used local storage for persistence
+Dockerized application for deployment
+Technical Skills
+Languages: Java, Python, JavaScript, HTML, CSS
+Concepts: Object-Oriented Programming, Data Structures
+Frameworks & Technologies: React.js, Node.js, REST APIs, API Integration
+Databases: SQL, MongoDB
+Tools: VS Code, Git, GitHub
+Leadership & Extracurricular Activities
+Core Member – X Factor NMIT (Oct 2022 – May 2025)
+Organized and managed college events
+Planned timelines and handled logistics
+Resolved real-time issues during events
+Core Member – Nepali Event Management (Jan 2022 – May 2025)
+Organized cultural events
+Ensured smooth execution and participant engagement

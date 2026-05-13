@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio — Frontend Developer</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body>
+
+  <!-- ── CUSTOM CURSOR ─────────────────────────────────── -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- ── NOISE OVERLAY ─────────────────────────────────── -->
+  <div class="noise-overlay"></div>
+
+  <!-- ── BACKGROUND MESH ───────────────────────────────── -->
+  <div class="bg-mesh">
+    <div class="mesh-orb orb-1"></div>
+    <div class="mesh-orb orb-2"></div>
+    <div class="mesh-orb orb-3"></div>
+  </div>
+
+  <!-- ── PARTICLE CANVAS ───────────────────────────────── -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- ══════════════════════════════════════════════════════
+       NAVBAR
+  ══════════════════════════════════════════════════════ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">
+        <span class="logo-bracket">&lt;</span>
+        <span class="logo-name">Neha Yadav</span>
+        <span class="logo-bracket"> /&gt;</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about"   class="nav-link">About</a></li>
+        <li><a href="#skills"  class="nav-link">Skills</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <li>
+          <a href="#chat" class="nav-cta">
+            <i class="fa-solid fa-robot"></i> Chat with Me
+          </a>
+        </li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="#about"    class="nav-mobile-link">About</a>
+      <a href="#skills"   class="nav-mobile-link">Skills</a>
+      <a href="#projects" class="nav-mobile-link">Projects</a>
+      <a href="#contact"  class="nav-mobile-link">Contact</a>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════════
+       HERO
+  ══════════════════════════════════════════════════════ -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <div class="hero-tag reveal-up">
+        <span class="tag-dot"></span>
+        Available for work
+      </div>
+      <h1 class="hero-name reveal-up delay-1">
+        Hi, I'm <span class="gradient-text">Neha Yadav</span>
+      </h1>
+      <div class="hero-role reveal-up delay-2">
+        <span class="role-prefix">I build </span>
+        <span class="typewriter-target" id="typewriterEl"></span>
+        <span class="cursor-blink">|</span>
+      </div>
+      <p class="hero-desc reveal-up delay-3">
+        Crafting pixel-perfect, performant web experiences that live at the
+        intersection of engineering and design.
+      </p>
+      <div class="hero-ctas reveal-up delay-4">
+        <a href="#projects" class="btn btn-primary magnetic">
+          <span>View Work</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <a href="#contact" class="btn btn-ghost magnetic">
+          <span>Let's Talk</span>
+        </a>
+      </div>
+      <div class="hero-stats reveal-up delay-5">
+        <div class="stat">
+          <span class="stat-num counter" data-target="20">0</span><span>+</span>
+          <span class="stat-label">Projects</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num counter" data-target="3">0</span><span>+</span>
+          <span class="stat-label">Years Exp</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num counter" data-target="15">0</span><span>+</span>
+          <span class="stat-label">Technologies</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating 3D shapes -->
+    <div class="hero-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+      <div class="shape shape-4"></div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+      <div class="scroll-wheel"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       ABOUT
+  ══════════════════════════════════════════════════════ -->
+  <section class="section about" id="about">
+    <div class="container">
+      <div class="section-tag reveal-up">01 — About Me</div>
+      <div class="about-grid">
+
+        <!-- Photo & card -->
+        <div class="about-visual reveal-left">
+          <div class="profile-card" id="profileCard">
+            <div class="profile-img-wrap">
+              <img src="assets/images/profile.jpg" alt="Profile" class="profile-img"
+                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+              <div class="profile-placeholder">
+                <i class="fa-solid fa-user"></i>
+              </div>
+            </div> 
+            <div class="profile-badge">
+              <span class="badge-dot pulse"></span>
+              Open to opportunities
+            </div>
+          </div>
+          <div class="about-decoration">
+            <div class="deco-line"></div>
+            <div class="deco-dot"></div>
+          </div>
+        </div>
+
+        <!-- Text content -->
+        <div class="about-text reveal-right">
+          <h2 class="section-title">Turning ideas into <span class="gradient-text">real-world applications</span></h2>
+          <p class="about-bio">
+            I'm a Computer Science graduate with a strong interest in full-stack web development. I have hands-on experience in building responsive and user-friendly applications using HTML, CSS, JavaScript, React.js, Node.js, Express.js, and MongoDB. I have also worked on real-world projects and internships where I developed UI components, integrated APIs, and improved overall application functionality.
+          </p>
+          
+          <!-- Skill bars -->
+          <div class="skill-bars">
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span>React / Next.js</span><span class="skill-pct">92%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="92"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span>CSS / Animations</span><span class="skill-pct">88%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="88"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span>Python / FastAPI</span><span class="skill-pct">75%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="75"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span>AI / LLM Integration</span><span class="skill-pct">70%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="70"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-actions">
+            <a href="assets/resume.pdf" class="btn btn-primary magnetic" download>
+              <i class="fa-solid fa-download"></i>
+              <span>Download CV</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline -->
+<div class="timeline reveal-up">
+  <h3 class="timeline-title">Experience & Education</h3>
+
+  <div class="timeline-track">
+
+    <!-- EasyMy Learning -->
+    <div class="timeline-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content glass">
+        <span class="tl-year">Feb 2025 – May 2025</span>
+        <h4>Software Engineer Intern</h4>
+        <p>
+          EasyMy Learning — Developed features like notes management with pagination, 
+          profile management, and payment modules. Integrated APIs and improved user experience 
+          using React, JavaScript, HTML, CSS, react.js, node.js.
+        </p>
+      </div>
+    </div>
+
+    <!-- InternPe -->
+    <div class="timeline-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content glass">
+        <span class="tl-year">Jun 2024 – Jul 2024</span>
+        <h4>Web Development Intern</h4>
+        <p>
+          InternPe — Worked on frontend projects, built a To-Do application, 
+          and contributed to UI design for an e-commerce website.
+        </p>
+      </div>
+    </div>
+
+    <!-- Infosys -->
+    <div class="timeline-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content glass">
+        <span class="tl-year">Aug 2023 – Sep 2023</span>
+        <h4>Python Trainee</h4>
+        <p>
+          Infosys — Completed Python training and worked on a project to improve 
+          problem-solving and coding skills.
+        </p>
+      </div>
+    </div>
+
+    <!-- Education -->
+    <div class="timeline-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content glass">
+        <span class="tl-year">Nov 2021 – Jun 2025</span>
+        <h4>B.E. Computer Science</h4>
+        <p>Nitte Meenakshi Institute of Technology</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+  <section class="section skills" id="skills">
+  <div class="container">
+    <div class="section-tag reveal-up">02 — Skills</div>
+    <h2 class="section-title centered reveal-up">My <span class="gradient-text">Tech Stack</span></h2>
+
+    <div class="skills-grid">
+
+      <!-- Frontend -->
+      <div class="skills-category reveal-up delay-1">
+        <div class="cat-header">
+          <i class="fa-solid fa-layer-group"></i>
+          <h3>Frontend</h3>
+        </div>
+        <div class="skill-pills">
+          <span class="pill" data-color="cyan">HTML</span>
+          <span class="pill" data-color="cyan">CSS</span>
+          <span class="pill" data-color="cyan">JavaScript</span>
+          <span class="pill" data-color="cyan">React.js</span>
+        </div>
+      </div>
+
+      <!-- Backend -->
+      <div class="skills-category reveal-up delay-2">
+        <div class="cat-header">
+          <i class="fa-solid fa-server"></i>
+          <h3>Backend</h3>
+        </div>
+        <div class="skill-pills">
+          <span class="pill" data-color="purple">Java</span>
+          <span class="pill" data-color="purple">Python</span>
+          <span class="pill" data-color="purple">Node.js</span>
+          <span class="pill" data-color="purple">REST APIs</span>
+          <span class="pill" data-color="purple">API Integration</span>
+          <span class="pill" data-color="purple">OOPs</span>
+          <span class="pill" data-color="purple">SQL</span>
+          <span class="pill" data-color="purple">MongoDB</span>
+        </div>
+      </div>
+
+      <!-- Tools -->
+      <div class="skills-category reveal-up delay-3">
+        <div class="cat-header">
+          <i class="fa-solid fa-wrench"></i>
+          <h3>Tools &amp; Platforms</h3>
+        </div>
+        <div class="skill-pills">
+          <span class="pill" data-color="green">Git</span>
+          <span class="pill" data-color="green">GitHub</span>
+          <span class="pill" data-color="green">VS Code</span>
+          <span class="pill" data-color="green">Postman</span>
+          <span class="pill" data-color="green">Excel</span>
+          <span class="pill" data-color="green">ChatGPT</span>
+          <span class="pill" data-color="green">Claude</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+      <!-- Orbiting icons ring -->
+      <div class="orbit-container reveal-up">
+        <div class="orbit-center">
+          <i class="fa-solid fa-code"></i>
+        </div>
+        <div class="orbit orbit-1">
+          <div class="orbit-icon"><i class="fa-brands fa-react"></i></div>
+        </div>
+        <div class="orbit orbit-2">
+          <div class="orbit-icon"><i class="fa-brands fa-python"></i></div>
+        </div>
+        <div class="orbit orbit-3">
+          <div class="orbit-icon"><i class="fa-brands fa-js"></i></div>
+        </div>
+        <div class="orbit orbit-4">
+          <div class="orbit-icon"><i class="fa-brands fa-node-js"></i></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       PROJECTS
+  ══════════════════════════════════════════════════════ -->
+  <section class="section projects" id="projects">
+    <div class="container">
+      <div class="section-tag reveal-up">03 — Projects</div>
+      <h2 class="section-title centered reveal-up">Featured <span class="gradient-text">Work</span></h2>
+
+      <!-- Filter tabs -->
+      <div class="filter-tabs reveal-up">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="frontend">Frontend</button>
+        <button class="filter-btn" data-filter="fullstack">Full Stack</button>
+        <button class="filter-btn" data-filter="ai">AI / RAG</button>
+      </div>
+
+      <!-- Project cards -->
+      <div class="projects-grid" id="projectsGrid">
+
+        <div class="project-card flip-card" data-category="ai fullstack">
+          <div class="flip-inner">
+            <div class="flip-front glass">
+              <div class="proj-num">01</div>
+              <div class="proj-icon"><i class="fa-solid fa-robot"></i></div>
+              <h3>RAG Portfolio Bot</h3>
+              <p>AI-powered chatbot that answers questions about my resume using LangChain + vector DB</p>
+              <div class="proj-tags">
+                <span class="tag">Python</span>
+                <span class="tag">LangChain</span>
+                <span class="tag">FastAPI</span>
+                <span class="tag">React</span>
+              </div>
+            </div>
+            <div class="flip-back glass">
+              <h3>RAG Portfolio Bot</h3>
+              <p>Retrieval-Augmented Generation pipeline with embedded resume, semantic search using FAISS, and a streaming chat UI.</p>
+              <div class="flip-links">
+                <a href="#" class="btn btn-sm btn-primary"><i class="fa-solid fa-play"></i> Demo</a>
+                <a href="#" class="btn btn-sm btn-ghost"><i class="fa-brands fa-github"></i> Code</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card flip-card" data-category="frontend">
+          <div class="flip-inner">
+            <div class="flip-front glass">
+              <div class="proj-num">02</div>
+              <div class="proj-icon"><i class="fa-solid fa-palette"></i></div>
+              <h3>Design System UI</h3>
+              <p>A comprehensive component library built with React, Storybook, and custom CSS tokens</p>
+              <div class="proj-tags">
+                <span class="tag">React</span>
+                <span class="tag">Storybook</span>
+                <span class="tag">TypeScript</span>
+              </div>
+            </div>
+            <div class="flip-back glass">
+              <h3>Design System UI</h3>
+              <p>60+ production-ready components with full accessibility support, dark mode, and motion design guidelines.</p>
+              <div class="flip-links">
+                <a href="#" class="btn btn-sm btn-primary"><i class="fa-solid fa-play"></i> Demo</a>
+                <a href="#" class="btn btn-sm btn-ghost"><i class="fa-brands fa-github"></i> Code</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card flip-card" data-category="fullstack">
+          <div class="flip-inner">
+            <div class="flip-front glass">
+              <div class="proj-num">03</div>
+              <div class="proj-icon"><i class="fa-solid fa-chart-line"></i></div>
+              <h3>Analytics Dashboard</h3>
+              <p>Real-time data visualization dashboard with live websocket updates and D3.js charts</p>
+              <div class="proj-tags">
+                <span class="tag">Next.js</span>
+                <span class="tag">D3.js</span>
+                <span class="tag">WebSocket</span>
+              </div>
+            </div>
+            <div class="flip-back glass">
+              <h3>Analytics Dashboard</h3>
+              <p>Multi-tenant SaaS dashboard with role-based access, real-time metrics, and export capabilities.</p>
+              <div class="flip-links">
+                <a href="#" class="btn btn-sm btn-primary"><i class="fa-solid fa-play"></i> Demo</a>
+                <a href="#" class="btn btn-sm btn-ghost"><i class="fa-brands fa-github"></i> Code</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card flip-card" data-category="ai">
+          <div class="flip-inner">
+            <div class="flip-front glass">
+              <div class="proj-num">04</div>
+              <div class="proj-icon"><i class="fa-solid fa-brain"></i></div>
+              <h3>LLM Code Reviewer</h3>
+              <p>GitHub bot that auto-reviews PRs using an LLM backend with custom prompting strategies</p>
+              <div class="proj-tags">
+                <span class="tag">Python</span>
+                <span class="tag">OpenAI</span>
+                <span class="tag">GitHub API</span>
+              </div>
+            </div>
+            <div class="flip-back glass">
+              <h3>LLM Code Reviewer</h3>
+              <p>Integrated with GitHub Actions to provide intelligent, context-aware code reviews on every pull request.</p>
+              <div class="flip-links">
+                <a href="#" class="btn btn-sm btn-primary"><i class="fa-solid fa-play"></i> Demo</a>
+                <a href="#" class="btn btn-sm btn-ghost"><i class="fa-brands fa-github"></i> Code</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card flip-card" data-category="frontend">
+          <div class="flip-inner">
+            <div class="flip-front glass">
+              <div class="proj-num">05</div>
+              <div class="proj-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+              <h3>Motion UI Kit</h3>
+              <p>A collection of reusable animated React components with GSAP and Framer Motion</p>
+              <div class="proj-tags">
+                <span class="tag">React</span>
+                <span class="tag">GSAP</span>
+                <span class="tag">Framer</span>
+              </div>
+            </div>
+            <div class="flip-back glass">
+              <h3>Motion UI Kit</h3>
+              <p>30+ animated components including page transitions, scroll-triggered reveals, and interactive micro-animations.</p>
+              <div class="flip-links">
+                <a href="#" class="btn btn-sm btn-primary"><i class="fa-solid fa-play"></i> Demo</a>
+                <a href="#" class="btn btn-sm btn-ghost"><i class="fa-brands fa-github"></i> Code</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card flip-card" data-category="fullstack ai">
+          <div class="flip-inner">
+            <div class="flip-front glass">
+              <div class="proj-num">06</div>
+              <div class="proj-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+              <h3>Semantic Search App</h3>
+              <p>Full-stack semantic search engine using vector embeddings, FAISS, and a React frontend</p>
+              <div class="proj-tags">
+                <span class="tag">Python</span>
+                <span class="tag">FAISS</span>
+                <span class="tag">React</span>
+              </div>
+            </div>
+            <div class="flip-back glass">
+              <h3>Semantic Search App</h3>
+              <p>Search across 100k+ documents with sub-second response time using approximate nearest neighbor search.</p>
+              <div class="flip-links">
+                <a href="#" class="btn btn-sm btn-primary"><i class="fa-solid fa-play"></i> Demo</a>
+                <a href="#" class="btn btn-sm btn-ghost"><i class="fa-brands fa-github"></i> Code</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       CONTACT
+  ══════════════════════════════════════════════════════ -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <div class="section-tag reveal-up">04 — Contact</div>
+      <h2 class="section-title centered reveal-up">Let's <span class="gradient-text">Connect</span></h2>
+      <p class="contact-subtitle reveal-up">Have a project in mind? I'd love to hear from you.</p>
+
+      <div class="contact-grid">
+        <!-- Info panel -->
+        <div class="contact-info reveal-left">
+          <div class="contact-status glass">
+            <span class="status-dot pulse"></span>
+            <div>
+              <strong>Available for freelance</strong>
+              <p>Hyderabad, India · Remote OK</p>
+            </div>
+          </div>
+          <div class="contact-links">
+            <a href="nehayadav2678@gmail.com" class="contact-link">
+              <div class="cl-icon"><i class="fa-solid fa-envelope"></i></div>
+              <div>
+                <span class="cl-label">Email</span>
+                <span class="cl-val">nehayadav2678@gmail.com</span>
+              </div>
+            </a>
+            <a href="https://github.com/NehaYadav98" target="_blank" class="contact-link">
+              <div class="cl-icon"><i class="fa-brands fa-github"></i></div>
+              <div>
+                <span class="cl-label">GitHub</span>
+                <span class="cl-val">NehaYadav98</span>
+              </div>
+            </a>
+            <a href="https://www.linkedin.com/in/neha-yadav025/" target="_blank" class="contact-link">
+              <div class="cl-icon"><i class="fa-brands fa-linkedin"></i></div>
+              <div>
+                <span class="cl-label">LinkedIn</span>
+                <span class="cl-val">Neha Yadav</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="contact-form-wrap reveal-right">
+          <div class="contact-form glass">
+            <div class="form-group">
+              <input type="text" id="formName" placeholder=" " />
+              <label for="formName">Your Name</label>
+              <div class="form-line"></div>
+            </div>
+            <div class="form-group">
+              <input type="email" id="formEmail" placeholder=" " />
+              <label for="formEmail">Email Address</label>
+              <div class="form-line"></div>
+            </div>
+            <div class="form-group">
+              <input type="text" id="formSubject" placeholder=" " />
+              <label for="formSubject">Subject</label>
+              <div class="form-line"></div>
+            </div>
+            <div class="form-group">
+              <textarea id="formMessage" rows="4" placeholder=" "></textarea>
+              <label for="formMessage">Message</label>
+              <div class="form-line"></div>
+            </div>
+            <button class="btn btn-primary full-width magnetic" id="formSubmit">
+              <span>Send Message</span>
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+            <div class="form-success" id="formSuccess">
+              <i class="fa-solid fa-circle-check"></i>
+              Message sent! I'll get back to you soon.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <span class="footer-logo">
+        <span class="logo-bracket">&lt;</span>Neha Yadav<span class="logo-bracket"> /&gt;</span>
+      </span>
+      <span class="footer-copy">© 2025 — Crafted with ❤️ &amp; ☕</span>
+      <span class="footer-version">v1.0.0</span>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════════════════════
+       CHAT WIDGET (RAG — Phase 2 Ready)
+  ══════════════════════════════════════════════════════ -->
+  <div class="chat-bubble" id="chatBubble" title="Chat with my AI bot">
+    <div class="chat-bubble-icon">
+      <i class="fa-solid fa-robot chat-icon-open"></i>
+      <i class="fa-solid fa-xmark chat-icon-close"></i>
+    </div>
+    <span class="chat-badge">AI</span>
+  </div>
+
+  <div class="chat-window glass" id="chatWindow">
+    <div class="chat-header">
+      <div class="chat-header-info">
+        <div class="chat-avatar">
+          <i class="fa-solid fa-robot"></i>
+          <span class="chat-online-dot pulse"></span>
+        </div>
+        <div>
+          <strong>Portfolio Bot</strong>
+          <small>Powered by RAG · Ask me anything</small>
+        </div>
+      </div>
+      <button class="chat-close-btn" id="chatCloseBtn">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">
+        <div class="msg-bubble">
+          👋 Hi! I'm an AI assistant trained on this portfolio. Ask me about skills, projects, experience, or anything else!
+        </div>
+        <span class="msg-time">Just now</span>
+      </div>
+      <div class="chat-suggestions">
+        <button class="suggestion-btn" onclick="sendSuggestion('What are your top skills?')">Top skills?</button>
+        <button class="suggestion-btn" onclick="sendSuggestion('Tell me about your projects')">Projects</button>
+        <button class="suggestion-btn" onclick="sendSuggestion('Are you available for work?')">Availability</button>
+      </div>
+    </div>
+    <div class="chat-rag-notice">
+      <i class="fa-solid fa-circle-info"></i>
+      RAG backend coming in Phase 2
+    </div>
+    <div class="chat-input-area">
+      <input type="text" id="chatInput" placeholder="Ask me anything..." />
+      <button id="chatSend" class="chat-send-btn">
+        <i class="fa-solid fa-paper-plane"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       SCRIPTS
+  ══════════════════════════════════════════════════════ -->
+  <script src="js/particles.js"></script>
+  <script src="js/typewriter.js"></script>
+  <script src="js/tilt.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
