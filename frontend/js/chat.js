@@ -118,7 +118,7 @@ async function sendMessage() {
 
     const data = await response.json();
 
-    addMessage(data.answer, "bot");
+    addMessage(data, "bot");
 
   } catch (error) {
 
@@ -129,6 +129,18 @@ async function sendMessage() {
   }
 }
 
+
+// ==============================
+// SUGGESTION BUTTONS
+// ==============================
+
+function sendSuggestion(text) {
+
+  inputField.value = text;
+
+  sendMessage();
+
+}
 
 // ==============================
 // BUTTON CLICK

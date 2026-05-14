@@ -1151,3 +1151,26 @@
 
   cursor: pointer;
 }
+
+.chat-suggestions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.suggestion-btn {
+  background: #2a2a2a;
+  color: white;
+  border: 1px solid #444;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.3s;
+}
+
+.suggestion-btn:hover {
+  background: #ffffff;
+  color: #000;
+}
