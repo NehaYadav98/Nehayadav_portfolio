@@ -102,7 +102,7 @@ async function sendMessage() {
 
   try {
 
-    const response = await fetch("http://127.0.0.1:8000/chat", {
+    const response = await fetch("https://resume-portfolio-9qdm.onrender.com/chat", {
 
       method: "POST",
 
