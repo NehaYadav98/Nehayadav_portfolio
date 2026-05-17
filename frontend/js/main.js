@@ -6,13 +6,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ── HERO ENTRY ANIMATION ────────────────────────────────── */
   // Ensure browser has performed layout/first-paint before starting animations.
-  // Use requestAnimationFrame twice to yield to the compositor (robust across fast prod bundles).
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      const hero = document.querySelector('.hero');
-      if (hero) hero.classList.add('hero-loaded');
+  setTimeout(() => {
+    const hero = document.querySelector('.hero');
+    if (hero) hero.classList.add('hero-loaded');
+    document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right').forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 50) {
+        el.classList.add('visible');
+      }
     });
-  });
+  }, 50);
 
 
   /* ── NAVBAR SCROLL BEHAVIOR ──────────────────────────────── */
@@ -67,8 +70,14 @@ document.addEventListener('DOMContentLoaded', () => {
     { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
   );
 
-  document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right')
-    .forEach(el => revealObserver.observe(el));
+  document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 50) {
+      el.classList.add('visible');
+    } else {
+      revealObserver.observe(el);
+    }
+  });
 
 
   /* ── SKILL BAR FILL (on scroll into view) ────────────────── */
