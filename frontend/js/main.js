@@ -5,9 +5,14 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ── HERO ENTRY ANIMATION ────────────────────────────────── */
-  setTimeout(() => {
-    document.querySelector('.hero').classList.add('hero-loaded');
-  }, 100);
+  // Ensure browser has performed layout/first-paint before starting animations.
+  // Use requestAnimationFrame twice to yield to the compositor (robust across fast prod bundles).
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      const hero = document.querySelector('.hero');
+      if (hero) hero.classList.add('hero-loaded');
+    });
+  });
 
 
   /* ── NAVBAR SCROLL BEHAVIOR ──────────────────────────────── */
@@ -99,7 +104,18 @@ document.addEventListener('DOMContentLoaded', () => {
     { threshold: 0.5 }
   );
 
-  document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+  // Observe counters, and also immediately trigger any counters already inside the viewport
+  document.querySelectorAll('.counter').forEach(el => {
+    counterObserver.observe(el);
+
+    // If the element is already above-the-fold (fast prod loads), animate immediately.
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight) {
+      // Prevent duplicate observer callback.
+      counterObserver.unobserve(el);
+      animateCounter(el);
+    }
+  });
 
   function animateCounter(el) {
     const target = parseInt(el.dataset.target, 10);

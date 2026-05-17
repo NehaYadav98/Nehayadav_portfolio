@@ -2,9 +2,10 @@
    TYPEWRITER.JS — Hero role cycling animation
 ═══════════════════════════════════════════════════════════════ */
 
-(function initTypewriter() {
-  const el = document.getElementById('typewriterEl');
-  if (!el) return;
+document.addEventListener('DOMContentLoaded', () => {
+  (function initTypewriter() {
+    const el = document.getElementById('typewriterEl');
+    if (!el) return;
 
   const phrases = [
     'beautiful interfaces',
@@ -69,5 +70,6 @@
   }
 
   // Kick off after hero entry animation completes
-  setTimeout(schedule, 900);
-})();
+  setTimeout(schedule, 800);
+  })();
+});
