@@ -1,164 +1,173 @@
-const openChatBtn = document.getElementById("openChatBtn");
-const chatWindow = document.getElementById("chatWindow");
-const chatBubble = document.getElementById("chatBubble");
-const chatCloseBtn = document.getElementById("chatCloseBtn");
 
-const chatBox = document.getElementById("chatMessages");
-const inputField = document.getElementById("chatInput");
-const sendBtn = document.getElementById("chatSend");
+document.addEventListener('DOMContentLoaded', function () {
+  const openChatBtn = document.getElementById("openChatBtn");
+  const chatWindow = document.getElementById("chatWindow");
+  const chatBubble = document.getElementById("chatBubble");
+  const chatCloseBtn = document.getElementById("chatCloseBtn");
 
-
-// ==============================
-// OPEN CHAT FROM NAVBAR BUTTON
-// ==============================
-
-openChatBtn.addEventListener("click", () => {
-
-  chatWindow.classList.add("active");
-
-});
+  const chatBox = document.getElementById("chatMessages");
+  const inputField = document.getElementById("chatInput");
+  const sendBtn = document.getElementById("chatSend");
 
 
-// ==============================
-// OPEN/CLOSE FLOATING BUTTON
-// ==============================
+  // ==============================
+  // OPEN CHAT FROM NAVBAR BUTTON
+  // ==============================
 
-chatBubble.addEventListener("click", () => {
+  openChatBtn.addEventListener("click", () => {
 
-  chatWindow.classList.toggle("active");
+    chatWindow.classList.add("active");
 
-});
-
-
-// ==============================
-// CLOSE CHAT BUTTON
-// ==============================
-
-chatCloseBtn.addEventListener("click", () => {
-
-  chatWindow.classList.remove("active");
-
-});
+  });
 
 
-// ==============================
-// ADD MESSAGE
-// ==============================
+  // ==============================
+  // OPEN/CLOSE FLOATING BUTTON
+  // ==============================
 
-function addMessage(message, sender) {
+  chatBubble.addEventListener("click", () => {
 
-  const row = document.createElement("div");
+    chatWindow.classList.toggle("active");
 
-  row.style.display = "flex";
-  row.style.marginBottom = "16px";
+  });
 
-  row.style.justifyContent =
-    sender === "user" ? "flex-end" : "flex-start";
 
-  const bubble = document.createElement("div");
+  // ==============================
+  // CLOSE CHAT BUTTON
+  // ==============================
 
-  bubble.style.padding = "14px 16px";
-  bubble.style.borderRadius = "16px";
-  bubble.style.maxWidth = "75%";
-  bubble.style.fontSize = "15px";
-  bubble.style.lineHeight = "1.5";
-  bubble.style.wordBreak = "break-word";
+  chatCloseBtn.addEventListener("click", () => {
 
-  if (sender === "user") {
+    chatWindow.classList.remove("active");
 
-    bubble.style.background = "#ffffff";
-    bubble.style.color = "#000";
+  });
 
-  } else {
 
-    bubble.style.background = "#2f2f2f";
-    bubble.style.color = "#fff";
+  // ==============================
+  // ADD MESSAGE
+  // ==============================
 
+  function addMessage(message, sender) {
+
+    const row = document.createElement("div");
+
+    row.style.display = "flex";
+    row.style.marginBottom = "16px";
+
+    row.style.justifyContent =
+      sender === "user" ? "flex-end" : "flex-start";
+
+    const bubble = document.createElement("div");
+
+    bubble.style.padding = "14px 16px";
+    bubble.style.borderRadius = "16px";
+    bubble.style.maxWidth = "75%";
+    bubble.style.fontSize = "15px";
+    bubble.style.lineHeight = "1.5";
+    bubble.style.wordBreak = "break-word";
+
+    if (sender === "user") {
+
+      bubble.style.background = "#ffffff";
+      bubble.style.color = "#000";
+
+    } else {
+
+      bubble.style.background = "#2f2f2f";
+      bubble.style.color = "#fff";
+
+    }
+
+    bubble.innerText = message;
+
+    row.appendChild(bubble);
+
+    chatBox.appendChild(row);
+
+    chatBox.scrollTop = chatBox.scrollHeight;
   }
 
-  bubble.innerText = message;
-
-  row.appendChild(bubble);
-
-  chatBox.appendChild(row);
-
-  chatBox.scrollTop = chatBox.scrollHeight;
-}
 
 
-// ==============================
-// SEND MESSAGE
-// ==============================
+  // ==============================
+  // SEND MESSAGE
+  // ==============================
 
-async function sendMessage() {
+  async function sendMessage() {
 
-  const message = inputField.value.trim();
+    const message = inputField.value.trim();
 
-  if (!message) return;
+    if (!message) return;
 
-  addMessage(message, "user");
+    addMessage(message, "user");
 
-  inputField.value = "";
+    inputField.value = "";
 
-  try {
+    try {
 
-    const response = await fetch("https://resume-portfolio-9qdm.onrender.com/chat", {
+      const response = await fetch("https://resume-portfolio-9qdm.onrender.com/chat", {
 
-      method: "POST",
+        method: "POST",
 
-      headers: {
-        "Content-Type": "application/json",
-      },
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-      body: JSON.stringify({
-        question: message,
-      }),
+        body: JSON.stringify({
+          question: message,
+        }),
 
-    });
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    addMessage(data, "bot");
+      addMessage(data, "bot");
 
-  } catch (error) {
+    } catch (error) {
 
-    addMessage("Server error. Try again.", "bot");
+      addMessage("Server error. Try again.", "bot");
 
-    console.error(error);
+      console.error(error);
 
+    }
   }
-}
 
 
-// ==============================
-// SUGGESTION BUTTONS
-// ==============================
 
-function sendSuggestion(text) {
+  // ==============================
+  // SUGGESTION BUTTONS
+  // ==============================
 
-  inputField.value = text;
+  function sendSuggestion(text) {
 
-  sendMessage();
-
-}
-
-// ==============================
-// BUTTON CLICK
-// ==============================
-
-sendBtn.addEventListener("click", sendMessage);
-
-
-// ==============================
-// ENTER KEY
-// ==============================
-
-inputField.addEventListener("keypress", function (e) {
-
-  if (e.key === "Enter") {
+    inputField.value = text;
 
     sendMessage();
 
   }
+
+  // Expose for inline onclick handlers
+  window.sendSuggestion = sendSuggestion;
+
+  // ==============================
+  // BUTTON CLICK
+  // ==============================
+
+  sendBtn.addEventListener("click", sendMessage);
+
+
+  // ==============================
+  // ENTER KEY
+  // ==============================
+
+  inputField.addEventListener("keypress", function (e) {
+
+    if (e.key === "Enter") {
+
+      sendMessage();
+
+    }
+
+  });
 
 });

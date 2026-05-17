@@ -2,7 +2,8 @@
    PARTICLES.JS — Background particle field + cursor trail
 ═══════════════════════════════════════════════════════════════ */
 
-(function initParticles() {
+document.addEventListener('DOMContentLoaded', function () {
+  (function initParticles() {
 
   /* ── BACKGROUND PARTICLES ─────────────────────────────────── */
   const canvas = document.getElementById('particleCanvas');
@@ -276,4 +277,5 @@
 
   trailLoop();
 
-})();
+  })();
+});
