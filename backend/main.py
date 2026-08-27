@@ -50,33 +50,36 @@ def search(query, k=3):
 
 @app.post("/chat")
 def chat(query: Query):
+    # 1. Retrieve relevant chunks from your vector database
     context_chunks = search(query.question)
+
+    # 2. Combine the retrieved chunks
     context = " ".join(context_chunks)
+
+    # 3. Create the RAG prompt
     prompt = f"""
-    Answer the question ONLY using the context below.
-    If the answer is not in the context, say "I don't know".
+Answer the question ONLY using the context below.
+If the answer is not in the context, say "I don't know".
 
-    Context:
-    {context}
-    """
+Context:
+{context}
 
+Question:
+{query.question}
+"""
+
+    # 4. Send the prompt + context to the new model
     completion = client.chat.completions.create(
-        model = MODEL_NAME,
+        model="openai/gpt-oss-120b",
         messages=[
-        {
-                "role": "system",  
-                "content": prompt
-            },
             {
-                "role": "user",    
-                "content": query.question
+                "role": "user",
+                "content": prompt
             }
-        ],
-        temperature=1,
-        max_completion_tokens=1024,
-        top_p=1,
-        stream=False,
-        stop=None
+        ]
     )
 
-    return completion.choices[0].message.content
+    # 5. Get the model's answer
+    answer = completion.choices[0].message.content
+
+    return answer
