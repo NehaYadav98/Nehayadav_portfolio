@@ -20,7 +20,7 @@ app.add_middleware(
 load_dotenv()
 
 # ✅ New client-based setup
-MODEL_NAME = "llama-3.1-8b-instant"               # ✅ current model
+MODEL_NAME = "openai/gpt-oss-20b"              # ✅ current model
 HF_API_TOKEN = os.getenv("HUGGINGFACE_API_TOKEN")
 HF_EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
